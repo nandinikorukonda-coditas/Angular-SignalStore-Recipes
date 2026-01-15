@@ -1,11 +1,30 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { RecipeStore } from '../../../core/stores/recipe-store';
+import { Card } from '../../../shared/components/card/card';
+import { Table } from '../../../shared/components/table/table';
+import { Button } from '../../../shared/components/button/button';
+import { MatIcon, MatIconModule } from '@angular/material/icon';
+import { FavouriteStore } from '../../../core/stores/favourite-store';
 
 @Component({
   selector: 'app-overview',
-  imports: [],
+  imports: [Card, Table,Button,MatIconModule],
   templateUrl: './overview.html',
   styleUrl: './overview.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Overview {
+
+  store=inject(RecipeStore); 
+  favStore=inject(FavouriteStore)  
+
+  editRecipe(recipe: any) {
+    console.log('Edit recipe', recipe);
+  }
+  
+  deleteRecipe(id: number) {
+    this.store.deleteRecipe(id);
+  }
+
 
 }

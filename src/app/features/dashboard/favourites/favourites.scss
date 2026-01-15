@@ -1,0 +1,68 @@
+.favourites-container {
+    padding: 1.5rem;
+  
+    .section-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #ff4081; // bright pink
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+  
+    .favourites-scroll {
+      display: flex;
+      gap: 1rem;
+      overflow-x: auto;
+      padding-bottom: 1rem;
+  
+      /* hide default scrollbar */
+      &::-webkit-scrollbar {
+        height: 6px;
+      }
+      &::-webkit-scrollbar-thumb {
+        background: #ff4081;
+        border-radius: 3px;
+      }
+      &::-webkit-scrollbar-track {
+        background: #f0f0f0;
+      }
+  
+      .favourite-card {
+        min-width: 250px;
+        flex-shrink: 0;
+        background: linear-gradient(145deg, #ffe6f0, #ffcce5);
+        border-radius: 1rem;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+  
+        &:hover {
+          transform: translateY(-5px);
+        }
+  
+        .card-content {
+          font-size: 0.9rem;
+          color: #333;
+          margin-bottom: 0.8rem;
+  
+          p {
+            margin: 0.2rem 0;
+          }
+        }
+  
+        .card-actions {
+          display: flex;
+          justify-content: flex-end;
+        }
+      }
+  
+      .empty-msg {
+        font-size: 1rem;
+        color: #888;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 300px;
+      }
+    }
+  }
+  

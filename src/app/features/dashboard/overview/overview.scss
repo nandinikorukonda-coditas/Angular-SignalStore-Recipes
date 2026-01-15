@@ -1,0 +1,130 @@
+/* ================================
+   DASHBOARD LAYOUT
+================================ */
+.dashboard-container {
+    padding: 24px;
+    background: linear-gradient(180deg, #f9fafb 0%, #f1f5f9 100%);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+  
+  /* ================================
+     SUMMARY SECTION
+  ================================ */
+  .summary-section {
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+  
+    app-card {
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+  
+      &:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 14px 28px rgba(0, 0, 0, 0.12);
+      }
+    }
+  }
+  
+  /* ================================
+     RECENT SECTION
+  ================================ */
+  .recent-section {
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 24px;
+    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.08);
+  
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  /* ================================
+     SECTION HEADER
+  ================================ */
+  .section-header {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  
+    h2 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #0f172a;
+    }
+  
+    .subtitle {
+      font-size: 0.9rem;
+      color: #64748b;
+    }
+  }
+  
+  /* ================================
+     TABLE WRAPPER
+  ================================ */
+  .table-wrapper {
+    border-radius: 14px;
+    overflow: hidden;
+    background: linear-gradient(
+      135deg,
+      #f8fafc 0%,
+      #eef2ff 100%
+    );
+    padding: 12px;
+  
+    app-table {
+      background: #ffffff;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+  }
+  
+  /* ================================
+     ACTION BUTTONS (EDIT / DELETE)
+  ================================ */
+  ::ng-deep app-table {
+    button[mat-icon-button] {
+      margin: 0 4px;
+      border-radius: 50%;
+      transition: background-color 0.2s ease, transform 0.15s ease;
+  
+      &:hover {
+        transform: scale(1.12);
+      }
+  
+      mat-icon {
+        font-size: 20px;
+      }
+    }
+  
+    button[color='primary']:hover {
+      background-color: rgba(59, 130, 246, 0.15);
+    }
+  
+    button[color='warn']:hover {
+      background-color: rgba(239, 68, 68, 0.15);
+    }
+  }
+  
+  /* ================================
+     RESPONSIVE
+  ================================ */
+  @media (max-width: 768px) {
+    .dashboard-container {
+      padding: 16px;
+    }
+  
+    .recent-section {
+      padding: 18px;
+    }
+  
+    .section-header h2 {
+      font-size: 1.2rem;
+    }
+  }
+  

@@ -6,6 +6,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { RecipeStore } from '../../../core/stores/recipe-store';
 import { NgFor, NgIf } from '@angular/common';
 import { Button } from '../../../shared/components/button/button';
+import { Recipe } from '../../../core/models/recipe-model';
+import { FavouriteStore } from '../../../core/stores/favourite-store';
 
 @Component({
   selector: 'app-recipes',
@@ -17,13 +19,20 @@ import { Button } from '../../../shared/components/button/button';
 export class Recipes {
   readonly store = inject(RecipeStore);
 
-  constructor() {}
+  favouriteStore = inject(FavouriteStore);
+
+  
+
+  
 
   ngOnInit(): void {
     // Load recipes on component init
     this.store.loadRecipes();
   }
 
+  toggleFavourite(recipe: Recipe) {
+    this.favouriteStore.addToFavourites(recipe);
+  }
   /**
    * Search recipes by name
    * @param query - text from search input

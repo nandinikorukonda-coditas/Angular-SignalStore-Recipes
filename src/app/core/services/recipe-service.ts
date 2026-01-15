@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {
@@ -15,7 +15,7 @@ import {
 export class RecipeService {
   private baseUrl = 'https://dummyjson.com/recipes';
 
-  constructor(private http: HttpClient) {}
+  http=inject(HttpClient);
 
   /** Get all recipes with optional query params (pagination, select, sort) */
   getAllRecipes(params?: RecipesQueryParams): Observable<RecipesResponse> {

@@ -1,1 +1,35 @@
-<p>favourites works!</p>
+<div class="favourites-container">
+    <h2 class="section-title">Your Favourite Recipes ❤️</h2>
+  
+    <!-- Horizontal scroll container -->
+    <div class="favourites-scroll">
+      <app-card
+        *ngFor="let recipe of favouriteStore.favourites()"
+        [title]="recipe.name"
+        [value]="recipe.cuisine"
+        icon="restaurant_menu"
+        class="favourite-card"
+      >
+        <div class="card-content">
+          <p>Difficulty: {{ recipe?.difficulty }}</p>
+          <p>Servings: {{ recipe?.servings }}</p>
+          <p>Rating: ⭐ {{ recipe?.rating }} ({{ recipe?.reviewCount }})</p>
+        </div>
+  
+        <div class="card-actions">
+          <app-button
+            type="warn"
+            icon="delete"
+            label="Remove"
+            (clicked)="removeFromFavourites(recipe.id)"
+          ></app-button>
+        </div>
+      </app-card>
+
+      <!-- Show message if no favourites -->
+      <div *ngIf="favouriteStore.favourites().length === 0" class="empty-msg">
+        No favourites yet! Click the ❤️ on any recipe to add.
+      </div>
+    </div>
+  </div>
+  

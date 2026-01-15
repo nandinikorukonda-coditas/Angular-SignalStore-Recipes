@@ -38,14 +38,41 @@ export const RecipeStore = signalStore(
 
   // Computed signals
   withComputed((store) => ({
-    // Count of recipes
+    /** Existing */
     recipesCount: computed(() => store.recipes().length),
-
-    // Sorted recipes (using [...].sort() for ES2022 compatibility)
+  
     sortedRecipes: computed(() =>
       [...store.recipes()].sort((a, b) => a.name.localeCompare(b.name))
     ),
-  })),
+  
+    /** Dashboard specific */
+    avgRating: computed(() => {
+      if (!store.recipes().length) return 0;
+      return (
+        store.recipes().reduce((sum, r) => sum + (r.rating ?? 0), 0) /
+        store.recipes().length
+      ).toFixed(1);
+    }),
+  
+    
+  
+    avgCalories: computed(() => {
+      if (!store.recipes().length) return 0;
+      return Math.round(
+        store.recipes().reduce(
+          (sum, r) => sum + (r.caloriesPerServing ?? 0),
+          0
+        ) / store.recipes().length
+      );
+    }),
+  
+    recentRecipes: computed(() =>
+      [...store.recipes()]
+        .slice(-5)
+        .reverse()
+    ),
+  }))
+,  
 
   // Methods
   withMethods((store) => {

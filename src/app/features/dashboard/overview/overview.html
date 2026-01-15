@@ -1,1 +1,67 @@
-<p>overview works!</p>
+<!-- DASHBOARD -->
+<div class="dashboard-container">
+
+    <!-- SUMMARY CARDS -->
+    <section class="summary-section">
+      <div class="summary-grid">
+        <app-card
+          title="Total Recipes"
+          [value]="store.recipesCount()"
+          icon="restaurant_menu"
+        />
+  
+        <app-card
+          title="Avg Rating"
+          [value]="store.avgRating() + ' ★'"
+          icon="star"
+        />
+  
+        <app-card
+          title="Favourites"
+          [value]="favStore.favouritesCount()"
+          icon="favorite"
+        />
+  
+        <app-card
+          title="Avg Calories"
+          [value]="store.avgCalories() + ' kcal'"
+          icon="local_fire_department"
+        />
+      </div>
+    </section>
+  
+    <!-- RECENTLY ADDED -->
+    <section class="recent-section">
+      <div class="section-header">
+        <h2>Recently Added Recipes</h2>
+        <span class="subtitle">Latest recipes added by users</span>
+      </div>
+  
+      <div class="table-wrapper">
+        <app-table
+          [columns]="['name', 'cuisine', 'rating']"
+          [data]="store.recentRecipes()"
+        >
+          <ng-template #actions let-row>
+            <button
+              mat-icon-button
+              color="primary"
+              (click)="editRecipe(row)"
+            >
+              <mat-icon>edit</mat-icon>
+            </button>
+  
+            <button
+              mat-icon-button
+              color="warn"
+              (click)="deleteRecipe(row.id)"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+          </ng-template>
+        </app-table>
+      </div>
+    </section>
+  
+  </div>
+  
