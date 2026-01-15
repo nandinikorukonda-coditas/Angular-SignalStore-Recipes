@@ -25,10 +25,10 @@ export class Recipes {
 
   
 
-  ngOnInit(): void {
-    // Load recipes on component init
-    this.store.loadRecipes();
-  }
+  // ngOnInit(): void {
+  //   // Load recipes on component init
+  //   this.store.loadRecipes();
+  // }
 
   toggleFavourite(recipe: Recipe) {
     this.favouriteStore.addToFavourites(recipe);

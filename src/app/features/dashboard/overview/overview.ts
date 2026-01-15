@@ -5,10 +5,11 @@ import { Table } from '../../../shared/components/table/table';
 import { Button } from '../../../shared/components/button/button';
 import { MatIcon, MatIconModule } from '@angular/material/icon';
 import { FavouriteStore } from '../../../core/stores/favourite-store';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-overview',
-  imports: [Card, Table,Button,MatIconModule],
+  imports: [Card, Table,Button,MatIconModule,CommonModule],
   templateUrl: './overview.html',
   styleUrl: './overview.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

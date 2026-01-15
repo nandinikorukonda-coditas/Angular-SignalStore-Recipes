@@ -1,10 +1,10 @@
 <div class="recipes-container">
     <!-- Search bar -->
-    <mat-form-field appearance="outline" class="search-field">
+    <!-- <mat-form-field appearance="outline" class="search-field">
       <mat-label>Search recipes</mat-label>
       <input matInput placeholder="Enter recipe name..." (input)="search($event.target.value)" />
       <mat-icon matSuffix>search</mat-icon>
-    </mat-form-field>
+    </mat-form-field> -->
   
     <!-- Loading / Error -->
     <div *ngIf="store.isLoading()" class="loading">Loading recipes...</div>
@@ -16,7 +16,7 @@
         *ngFor="let recipe of store.recipes()"
         [title]="recipe.name"
         [value]="recipe.cuisine"
-        [icon]="'restaurant_menu'"
+       
         class="recipe-card"
       >
         <!-- Image at the top -->

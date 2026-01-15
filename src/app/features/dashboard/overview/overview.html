@@ -4,29 +4,35 @@
     <!-- SUMMARY CARDS -->
     <section class="summary-section">
       <div class="summary-grid">
+  
         <app-card
           title="Total Recipes"
           [value]="store.recipesCount()"
           icon="restaurant_menu"
-        />
+          class="summary-card recipes"
+        ></app-card>
   
         <app-card
           title="Avg Rating"
           [value]="store.avgRating() + ' ★'"
           icon="star"
-        />
+          class="summary-card rating"
+        ></app-card>
   
         <app-card
           title="Favourites"
           [value]="favStore.favouritesCount()"
           icon="favorite"
-        />
+          class="summary-card favourites"
+        ></app-card>
   
         <app-card
           title="Avg Calories"
           [value]="store.avgCalories() + ' kcal'"
           icon="local_fire_department"
-        />
+          class="summary-card calories"
+        ></app-card>
+  
       </div>
     </section>
   
@@ -39,26 +45,47 @@
   
       <div class="table-wrapper">
         <app-table
-          [columns]="['name', 'cuisine', 'rating']"
+          [columns]="['name', 'cuisine', 'rating', 'actions']"
           [data]="store.recentRecipes()"
         >
-          <ng-template #actions let-row>
-            <button
-              mat-icon-button
-              color="primary"
-              (click)="editRecipe(row)"
-            >
-              <mat-icon>edit</mat-icon>
-            </button>
   
-            <button
-              mat-icon-button
-              color="warn"
-              (click)="deleteRecipe(row.id)"
-            >
-              <mat-icon>delete</mat-icon>
-            </button>
+          <!-- NAME -->
+          <ng-template #name let-row>
+            <div class="cell-name">
+              <mat-icon>restaurant</mat-icon>
+              {{ row.name }}
+            </div>
           </ng-template>
+  
+          <!-- CUISINE -->
+          <ng-template #cuisine let-row>
+            <span class="badge cuisine">
+              <mat-icon>public</mat-icon>
+              {{ row.cuisine }}
+            </span>
+          </ng-template>
+  
+          <!-- RATING -->
+          <ng-template #rating let-row>
+            <span class="rating-cell">
+              <mat-icon>star</mat-icon>
+              {{ row.rating }}
+            </span>
+          </ng-template>
+  
+          <!-- ACTIONS -->
+          <ng-template #actions let-row>
+            <div class="action-buttons">
+              <button mat-icon-button color="primary" (click)="editRecipe(row)">
+                <mat-icon>edit</mat-icon>
+              </button>
+  
+              <button mat-icon-button color="warn" (click)="deleteRecipe(row.id)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </ng-template>
+  
         </app-table>
       </div>
     </section>

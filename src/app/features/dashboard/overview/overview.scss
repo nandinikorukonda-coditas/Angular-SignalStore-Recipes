@@ -1,130 +1,239 @@
-/* ================================
-   DASHBOARD LAYOUT
-================================ */
+/* ================= ROOT ================= */
+
 .dashboard-container {
-    padding: 24px;
-    background: linear-gradient(180deg, #f9fafb 0%, #f1f5f9 100%);
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
+    padding: 32px 32px 120px;
+    max-width: 1400px;
+    margin: 0 auto;
+    min-height: calc(100vh - 200px);
   }
   
-  /* ================================
-     SUMMARY SECTION
-  ================================ */
+  /* ================= SUMMARY SECTION ================= */
+  
   .summary-section {
-    .summary-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 20px;
-    }
-  
-    app-card {
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
-  
-      &:hover {
-        transform: translateY(-6px);
-        box-shadow: 0 14px 28px rgba(0, 0, 0, 0.12);
-      }
-    }
+    margin-bottom: 48px;
   }
   
-  /* ================================
-     RECENT SECTION
-  ================================ */
-  .recent-section {
+  .summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
+  }
+  
+  /* ================= SUMMARY CARD STYLING ================= */
+  
+  ::ng-deep app-card.summary-card {
     background: #ffffff;
-    border-radius: 18px;
-    padding: 24px;
-    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.08);
-  
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-  
-  /* ================================
-     SECTION HEADER
-  ================================ */
-  .section-header {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-  
-    h2 {
-      font-size: 1.4rem;
-      font-weight: 700;
-      color: #0f172a;
-    }
-  
-    .subtitle {
-      font-size: 0.9rem;
-      color: #64748b;
-    }
-  }
-  
-  /* ================================
-     TABLE WRAPPER
-  ================================ */
-  .table-wrapper {
     border-radius: 14px;
-    overflow: hidden;
-    background: linear-gradient(
-      135deg,
-      #f8fafc 0%,
-      #eef2ff 100%
-    );
-    padding: 12px;
+    border: 1px solid #e9ecef;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
   
-    app-table {
-      background: #ffffff;
-      border-radius: 12px;
-      overflow: hidden;
+    &:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 14px 32px rgba(0, 0, 0, 0.12);
+    }
+  
+    .card-content {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      padding: 24px;
+    }
+  
+    .card-text {
+      h3 {
+        margin: 0 0 6px;
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.8px;
+        text-transform: uppercase;
+        color: #6b7280;
+      }
+  
+      .card-value {
+        font-size: 34px;
+        font-weight: 800;
+        color: #111827;
+      }
     }
   }
   
-  /* ================================
-     ACTION BUTTONS (EDIT / DELETE)
-  ================================ */
-  ::ng-deep app-table {
-    button[mat-icon-button] {
-      margin: 0 4px;
-      border-radius: 50%;
-      transition: background-color 0.2s ease, transform 0.15s ease;
+  /* ================= ICON COLORS (YOUR REQUEST) ================= */
   
-      &:hover {
-        transform: scale(1.12);
-      }
-  
-      mat-icon {
-        font-size: 20px;
-      }
-    }
-  
-    button[color='primary']:hover {
-      background-color: rgba(59, 130, 246, 0.15);
-    }
-  
-    button[color='warn']:hover {
-      background-color: rgba(239, 68, 68, 0.15);
-    }
+  ::ng-deep app-card.summary-card.recipes mat-icon {
+    color: #6366f1; /* Indigo */
   }
   
-  /* ================================
-     RESPONSIVE
-  ================================ */
-  @media (max-width: 768px) {
-    .dashboard-container {
-      padding: 16px;
+  ::ng-deep app-card.summary-card.rating mat-icon {
+    color: #f59e0b; /* Amber */
+  }
+  
+  ::ng-deep app-card.summary-card.favourites mat-icon {
+    color: #ef4444; /* Red */
+  }
+  
+  ::ng-deep app-card.summary-card.calories mat-icon {
+    color: #22c55e; /* Green */
+  }
+  
+  .dashboard-container {
+    padding: 32px;
+    max-width: 1400px;
+    margin: 0 auto;
+    min-height: calc(100vh - 200px);
+  
+    /* ================= SUMMARY CARDS ================= */
+    .summary-section {
+      margin-bottom: 40px;
+  
+      .summary-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        gap: 20px;
+      }
     }
   
+    /* ================= RECENTLY ADDED TABLE ================= */
     .recent-section {
-      padding: 18px;
-    }
+      .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        margin-bottom: 20px;
+       
   
-    .section-header h2 {
-      font-size: 1.2rem;
+        h2 {
+          font-size: 24px;
+          font-weight: 700;
+          padding: 0.2rem;
+          background: linear-gradient(135deg, #8f99c9, #764ba2);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+        }
+  
+        .subtitle {
+          font-size: 14px;
+          color: #6b7280;
+        }
+      }
+  
+      .table-wrapper {
+        background: #ffffff;
+        border-radius: 16px;
+        border: 1px solid #e5e7eb;
+        box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
+        overflow: hidden;
+  
+        ::ng-deep app-table table {
+          width: 100%;
+          border-collapse: separate;
+          border-spacing: 0;
+        }
+  
+        /* ================= THEAD ================= */
+        ::ng-deep app-table thead {
+          background:  #8ca0e0;
+        }
+  
+        ::ng-deep app-table thead th {
+          padding: 16px 20px;
+          font-size: 13px;
+          font-weight: 700;
+          text-transform: uppercase;
+          color: #ffffff;
+          text-align: left;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        }
+  
+        /* ================= TBODY ROWS ================= */
+        ::ng-deep app-table tbody tr {
+          border-bottom: 1px solid #e5e7eb;
+          transition: all 0.25s ease;
+  
+          &:hover {
+            background: #f3f4f6;
+            transform: translateX(2px);
+          }
+  
+          &:last-child {
+            border-bottom: none;
+          }
+        }
+  
+        ::ng-deep app-table td {
+          padding: 16px 20px;
+          font-size: 14px;
+          color: #374151;
+          vertical-align: middle;
+        }
+  
+        /* ================= CELLS ================= */
+        .cell-name {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          font-weight: 600;
+  
+          mat-icon {
+            font-size: 20px;
+            color: #6366f1;
+          }
+        }
+  
+        .badge.cuisine {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          padding: 6px 12px;
+          border-radius: 999px;
+          background: rgba(34, 197, 94, 0.15);
+          color: #16a34a;
+          font-weight: 600;
+  
+          mat-icon {
+            font-size: 16px;
+            color: #22c55e;
+          }
+        }
+  
+        .rating-cell {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          font-weight: 600;
+          color: #f59e0b;
+  
+          mat-icon {
+            font-size: 18px;
+            color: #f59e0b;
+          }
+        }
+  
+        /* ================= ACTION BUTTONS ================= */
+        .action-buttons {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+        }
+  
+        ::ng-deep app-table button[color='primary'] {
+       
+          color: #6366f1;
+          border: none;
+         
+  
+          
+        }
+  
+        ::ng-deep app-table button[color='warn'] {
+         
+          color: #ef4444;
+          border: none;
+         
+  
+         
+        }
+      }
     }
   }
   

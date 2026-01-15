@@ -1,1 +1,45 @@
-<p>profile works!</p>
+<div class="profile-container">
+    <!-- Profile Card -->
+    <mat-card class="profile-card">
+      <mat-card-content>
+        <!-- Avatar + Name + Role -->
+        <div class="avatar-section">
+          
+          <div class="user-greeting">
+            <h2>{{ fullName() }}</h2>
+           
+          </div>
+        </div>
+  
+        <mat-divider class="section-divider"></mat-divider>
+  
+        <!-- User Details -->
+        <div class="details-section">
+          <h3>Account Information</h3>
+  
+          <div class="info-group">
+            <label>Full Name</label>
+            <p class="info-value">{{ fullName() }}</p>
+          </div>
+  
+          <div class="info-group">
+            <label>Email Address</label>
+            <p class="info-value email">{{ name() }}</p>
+          </div>
+  
+
+  
+          <div class="info-group" *ngIf="currentUser()?.id">
+            <label>User ID</label>
+            <p class="info-value">{{ currentUser()?.id }}</p>
+          </div>
+        </div>
+  
+        <mat-divider class="section-divider"></mat-divider>
+  
+        <!-- Actions -->
+        
+      </mat-card-content>
+    </mat-card>
+  </div>
+  

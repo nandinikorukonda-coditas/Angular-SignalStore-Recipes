@@ -6,6 +6,7 @@ import {
   withState,
   withComputed,
   withMethods,
+  withHooks,
 } from '@ngrx/signals';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { pipe, debounceTime, distinctUntilChanged, switchMap, tap } from 'rxjs';
@@ -176,5 +177,10 @@ export const RecipeStore = signalStore(
         )
       ),
     };
+  })
+  ,withHooks({
+    onInit(store) {
+      store.loadRecipes();
+    },
   })
 );
