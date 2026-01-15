@@ -1,1 +1,34 @@
-<p>sidenav works!</p>
+<mat-sidenav-container class="container">
+    <!-- Side Nav -->
+    <mat-sidenav mode="side" opened>
+      <mat-toolbar>Recipe App</mat-toolbar>
+  
+      <mat-nav-list>
+        <a mat-list-item routerLink="/dashboard">
+          <mat-icon matListItemIcon>dashboard</mat-icon>
+          <span matListItemTitle>Dashboard</span>
+        </a>
+  
+        <a mat-list-item routerLink="/recipes">
+          <mat-icon matListItemIcon>restaurant_menu</mat-icon>
+          <span matListItemTitle>Recipes</span>
+        </a>
+  
+        <a mat-list-item routerLink="/favourites">
+          <mat-icon matListItemIcon>favorite</mat-icon>
+          <span matListItemTitle>Favourites</span>
+        </a>
+  
+        <a mat-list-item routerLink="/profile">
+          <mat-icon matListItemIcon>person</mat-icon>
+          <span matListItemTitle>Profile</span>
+        </a>
+      </mat-nav-list>
+    </mat-sidenav>
+  
+    <!-- Content -->
+    <mat-sidenav-content>
+      <ng-content></ng-content>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+  

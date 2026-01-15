@@ -1,1 +1,12 @@
-<p>card works!</p>
+<mat-card class="summary-card">
+    <mat-card-content>
+      <div class="content">
+        <mat-icon *ngIf="icon()">{{ icon() }}</mat-icon>
+        <div>
+          <p class="title">{{ title() }}</p>
+          <h2 class="value">{{ value() }}</h2>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  

@@ -1,1 +1,9 @@
-<p>main works!</p>
+<app-header (toggleSidebar)="toggleSidebar()"></app-header>
+
+<app-sidenav #sidenav >
+  <div class="content-wrapper">
+    <router-outlet></router-outlet>
+  </div>
+</app-sidenav>
+
+

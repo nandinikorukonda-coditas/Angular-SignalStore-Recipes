@@ -1,1 +1,18 @@
-<p>input works!</p>
+<mat-form-field appearance="outline" class="full-width">
+    <mat-label>{{ label() }}</mat-label>
+  
+    @if (icon()) {
+      <mat-icon matPrefix>{{ icon() }}</mat-icon>
+    }
+  
+    <input
+      matInput
+      [type]="type()"
+      [placeholder]="placeholder()"
+      [disabled]="disabled()"
+      [required]="required()"
+      [ngModel]="value()"
+      (ngModelChange)="onInput($event)"
+    />
+  </mat-form-field>
+  

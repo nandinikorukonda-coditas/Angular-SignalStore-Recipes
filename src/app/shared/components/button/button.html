@@ -1,1 +1,11 @@
-<p>button works!</p>
+<button
+  mat-raised-button
+  [color]="type()"
+  [disabled]="disabled()"
+  (click)="onClick()"
+>
+  @if (icon()) {
+    <mat-icon class="icon">{{ icon() }}</mat-icon>
+  }
+  {{ label() }}
+</button>

@@ -1,11 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, AfterViewInit, ViewChild, input } from '@angular/core';
+import { MatTableModule } from '@angular/material/table';
+import { MatSort, MatSortModule } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-table',
-  imports: [],
+  imports: [MatTableModule],
   templateUrl: './table.html',
   styleUrl: './table.scss',
 })
 export class Table {
-
+  columns = input<string[]>([]);
+  data = input<any[]>([]);
 }
