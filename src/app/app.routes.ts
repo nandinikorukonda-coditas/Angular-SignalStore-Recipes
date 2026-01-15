@@ -8,7 +8,8 @@ export const routes: Routes = [
                 path:'',loadComponent:()=>import('./features/dashboard/overview/overview').then(m=>m.Overview)
             },
             {
-                path:'recipes',loadComponent:()=>import('./features/dashboard/recipes/recipes').then(m=>m.Recipes)
+                path:'recipes',loadComponent:()=>import('../app/features/recipes/recipes/recipes').then(m=>m.Recipes)
+
             },
             {
                 path:'favourites',loadComponent:()=>import('./features/dashboard/favourites/favourites').then(m=>m.Favourites)

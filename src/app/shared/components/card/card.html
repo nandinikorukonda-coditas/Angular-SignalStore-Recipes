@@ -1,4 +1,8 @@
 <mat-card class="summary-card">
+
+    <!-- projected image -->
+    <ng-content select="img"></ng-content>
+  
     <mat-card-content>
       <div class="content">
         <mat-icon *ngIf="icon()">{{ icon() }}</mat-icon>
@@ -7,6 +11,10 @@
           <h2 class="value">{{ value() }}</h2>
         </div>
       </div>
+  
+      <!-- projected body -->
+      <ng-content></ng-content>
     </mat-card-content>
+  
   </mat-card>
   

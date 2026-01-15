@@ -1,0 +1,37 @@
+<div class="recipes-container">
+    <!-- Search bar -->
+    <mat-form-field appearance="outline" class="search-field">
+        <mat-label>Search recipes</mat-label>
+        <input matInput placeholder="Enter recipe name..." (input)="search($event.target.value)" />
+        <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+
+    <!-- Loading / Error -->
+    <div *ngIf="store.isLoading()" class="loading">Loading recipes...</div>
+    <div *ngIf="store.error()" class="error">{{ store.error() }}</div>
+
+    <!-- Recipes Grid -->
+    <div class="recipes-grid">
+        <app-card *ngFor="let recipe of store.recipes()" [title]="recipe.name" [value]="recipe.cuisine"
+            [icon]="'restaurant_menu'">
+            <!-- Image at the top -->
+            <img class="recipe-image" [src]="recipe.image" [alt]="recipe.name" />
+
+            <!-- Additional content -->
+            <div class="recipe-details">
+                <p>Difficulty: {{ recipe?.difficulty }}</p>
+                <p>Servings: {{ recipe?.servings }}</p>
+                <!-- <p>Time: {{ recipe?.prepTimeMinutes + recipe?.cookTimeMinutes }}</p> -->
+                <p>Rating: ⭐ {{ recipe?.rating }} ({{ recipe?.reviewCount }})</p>
+
+                <div class="tags">
+                    <span *ngFor="let tag of recipe?.tags" class="tag">{{ tag }}</span>
+                </div>
+
+                <app-button label="Delete" type="warn" icon="delete" (clicked)="delete(recipe.id)"></app-button>
+
+            </div>
+
+        </app-card>
+    </div>
+</div>

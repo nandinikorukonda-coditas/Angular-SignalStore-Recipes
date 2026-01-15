@@ -1,0 +1,153 @@
+// src/app/stores/recipe-store.ts
+import { inject, computed } from '@angular/core';
+import {
+  patchState,
+  signalStore,
+  withState,
+  withComputed,
+  withMethods,
+} from '@ngrx/signals';
+import { rxMethod } from '@ngrx/signals/rxjs-interop';
+import { pipe, debounceTime, distinctUntilChanged, switchMap, tap } from 'rxjs';
+import { tapResponse } from '@ngrx/operators';
+import { RecipeService } from '../services/recipe-service';
+import { AddRecipeRequest, Recipe, RecipesResponse } from '../models/recipe-model';
+
+// Define the store state
+export type RecipeState = {
+  recipes: Recipe[];
+  isLoading: boolean;
+  error: string | null;
+  filter: { query: string; sortBy: string; order: 'asc' | 'desc' };
+};
+
+// Initial state
+const initialState: RecipeState = {
+  recipes: [],
+  isLoading: false,
+  error: null,
+  filter: { query: '', sortBy: 'name', order: 'asc' },
+};
+
+// Create the store
+export const RecipeStore = signalStore(
+  { providedIn: 'root' },
+
+  // State
+  withState(initialState),
+
+  // Computed signals
+  withComputed((store) => ({
+    // Count of recipes
+    recipesCount: computed(() => store.recipes().length),
+
+    // Sorted recipes (using [...].sort() for ES2022 compatibility)
+    sortedRecipes: computed(() =>
+      [...store.recipes()].sort((a, b) => a.name.localeCompare(b.name))
+    ),
+  })),
+
+  // Methods
+  withMethods((store) => {
+    const recipeService = inject(RecipeService);
+
+    return {
+      /** Load all recipes */
+      loadRecipes: rxMethod<void>(
+        pipe(
+          tap(() => patchState(store, { isLoading: true, error: null })),
+          switchMap(() =>
+            recipeService.getAllRecipes().pipe(
+              tapResponse({
+                next: (res: RecipesResponse) =>
+                  patchState(store, { recipes: res.recipes, isLoading: false }),
+                error: () =>
+                  patchState(store, { error: 'Failed to load recipes', isLoading: false }),
+              })
+            )
+          )
+        )
+      ),
+
+      /** Search recipes by query */
+      searchRecipes: rxMethod<string>(
+        pipe(
+          debounceTime(300),
+          distinctUntilChanged(),
+          tap(() => patchState(store, { isLoading: true, error: null })),
+          switchMap((query) =>
+            recipeService.searchRecipes(query).pipe(
+              tapResponse({
+                next: (res: RecipesResponse) =>
+                  patchState(store, { recipes: res.recipes, isLoading: false }),
+                error: () =>
+                  patchState(store, { error: 'Search failed', isLoading: false }),
+              })
+            )
+          )
+        )
+      ),
+
+      /** Add recipe */
+      addRecipe: rxMethod<AddRecipeRequest>(
+        pipe(
+          tap(() => patchState(store, { isLoading: true })),
+          switchMap((recipe: AddRecipeRequest) =>
+            recipeService.addRecipe(recipe).pipe(
+              tapResponse({
+                next: (res: Recipe) =>
+                  patchState(store, ({ recipes }) => ({
+                    recipes: [...recipes, res],
+                    isLoading: false,
+                  })),
+                error: () =>
+                  patchState(store, { error: 'Add failed', isLoading: false }),
+              })
+            )
+          )
+        )
+      ),
+      
+
+      /** Update recipe */
+      updateRecipe: rxMethod<Recipe>(
+        pipe(
+          tap(() => patchState(store, { isLoading: true })),
+          switchMap((recipe) =>
+            recipeService.updateRecipe(recipe.id, recipe).pipe(
+              tapResponse({
+                next: (res: Recipe) =>
+                  patchState(store, ({ recipes }) => ({
+                    recipes: recipes.map((r) => (r.id === res.id ? res : r)),
+                    isLoading: false,
+                  })),
+                error: () =>
+                  patchState(store, { error: 'Update failed', isLoading: false }),
+              })
+            )
+          )
+        )
+      ),
+
+      /** Delete recipe */
+      deleteRecipe: rxMethod<number>(
+        pipe(
+          tap(() => patchState(store, { isLoading: true })),
+          switchMap((id) =>
+            recipeService.deleteRecipe(id).pipe(
+              tapResponse({
+                next: () =>
+                  patchState(store, ({ recipes }) => ({
+                    recipes: recipes.filter((r) => r.id !== id),
+                    isLoading: false,
+                  })),
+                error: () =>
+                  patchState(store, { error: 'Delete failed', isLoading: false }),
+              })
+            )
+          )
+        )
+      ),
+    };
+  })
+);

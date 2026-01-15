@@ -1,0 +1,66 @@
+.recipes-container {
+    padding: 1.5rem;
+  
+    .search-field {
+      width: 100%;
+      max-width: 400px;
+      margin-bottom: 1.5rem;
+    }
+  
+    .loading,
+    .error {
+      text-align: center;
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+    }
+  
+    .recipes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+  
+    app-card {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+  
+      .recipe-image {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+        border-radius: 4px;
+        margin-bottom: 0.8rem;
+      }
+  
+      .recipe-details {
+        margin-top: 0.5rem;
+        font-size: 0.9rem;
+  
+        p {
+          margin: 0.2rem 0;
+        }
+  
+        .tags {
+          display: flex;
+          flex-wrap: wrap;
+          margin: 0.3rem 0;
+  
+          .tag {
+            background-color: #e0f7fa;
+            color: #00796b;
+            padding: 0.2rem 0.5rem;
+            margin: 0.2rem 0.2rem 0 0;
+            border-radius: 12px;
+            font-size: 0.75rem;
+          }
+        }
+  
+        button {
+          margin-top: 0.5rem;
+          width: 100%;
+        }
+      }
+    }
+  }
+  
