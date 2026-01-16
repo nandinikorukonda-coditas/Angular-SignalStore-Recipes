@@ -1,10 +1,30 @@
 <div class="recipes-container">
-    <!-- Search bar -->
-    <!-- <mat-form-field appearance="outline" class="search-field">
-      <mat-label>Search recipes</mat-label>
-      <input matInput placeholder="Enter recipe name..." (input)="search($event.target.value)" />
-      <mat-icon matSuffix>search</mat-icon>
-    </mat-form-field> -->
+
+    <!-- Top bar: Search + Add Button -->
+    <div class="recipes-topbar">
+      <!-- Search bar -->
+      <div>
+      <mat-form-field appearance="outline">
+        <mat-label>Search recipes</mat-label>
+        <input
+          matInput
+          placeholder="Enter recipe name..."
+          (input)="search($event.target.value)"
+        />
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+    </div>
+    
+  
+      <!-- Add Recipe Button -->
+      <app-button
+        class="add-recipe-btn"
+        label="Add Recipe"
+        type="primary"
+        icon="add"
+        
+      ></app-button>
+    </div>
   
     <!-- Loading / Error -->
     <div *ngIf="store.isLoading()" class="loading">Loading recipes...</div>
@@ -16,7 +36,6 @@
         *ngFor="let recipe of store.recipes()"
         [title]="recipe.name"
         [value]="recipe.cuisine"
-       
         class="recipe-card"
       >
         <!-- Image at the top -->
@@ -35,7 +54,12 @@
   
         <!-- Actions: Delete & Favourite -->
         <div class="recipe-actions">
-          <app-button label="Delete" type="warn" icon="delete" (clicked)="delete(recipe.id)"></app-button>
+          <app-button
+            label="Delete"
+            type="warn"
+            icon="delete"
+            (clicked)="delete(recipe.id)"
+          ></app-button>
   
           <!-- Favourite Icon -->
           <mat-icon
