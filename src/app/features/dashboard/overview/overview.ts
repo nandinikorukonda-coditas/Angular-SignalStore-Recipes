@@ -21,6 +21,7 @@ export class Overview {
 
   editRecipe(recipe: any) {
     console.log('Edit recipe', recipe);
+    this.store.updateRecipe(recipe);
   }
   
   deleteRecipe(id: number) {
