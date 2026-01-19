@@ -53,7 +53,8 @@ The store uses rxMethod to handle async API calls in a declarative way.
 
 Example: Load all Recipes
 
-```loadRecipes: rxMethod<void>(
+```
+loadRecipes: rxMethod<void>(
         pipe(
           tap(() => patchState(store, { isLoading: true, error: null })),
           switchMap(() =>
@@ -72,7 +73,8 @@ Example: Load all Recipes
               })
             )
           )
-        ))```
+        ))
+```
 
 This pattern:
 
