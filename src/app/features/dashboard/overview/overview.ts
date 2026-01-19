@@ -7,6 +7,7 @@ import { Button } from '../../../shared/components/button/button';
 import { MatIcon, MatIconModule } from '@angular/material/icon';
 import { FavouriteStore } from '../../../core/stores/favourite-store';
 import { CommonModule } from '@angular/common';
+import { Recipe } from '../../../core/models/recipe-model';
 
 @Component({
   selector: 'app-overview',
@@ -15,17 +16,18 @@ import { CommonModule } from '@angular/common';
   styleUrl: './overview.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
+
 export class Overview {
 
   store=inject(RecipeStore); 
   favStore=inject(FavouriteStore) 
   toast = inject(MatSnackBar);
 
-  editRecipe(recipe: any) {
+  editRecipe(recipe: Recipe) {
     console.log('Edit recipe', recipe);
-    // this.store.updateRecipe(recipe);
+   this.store.updateRecipe(recipe);
 
-    // ✅ Green toast for successful update
+   
     this.toast.open('Recipe updated successfully!', 'Close', {
       duration: 3000,
       horizontalPosition: 'right',
@@ -37,7 +39,7 @@ export class Overview {
   deleteRecipe(id: number) {
     this.store.deleteRecipe(id);
 
-    // ✅ Red toast for delete
+   
     this.toast.open('Recipe deleted successfully!', 'Close', {
       duration: 3000,
       horizontalPosition: 'right',

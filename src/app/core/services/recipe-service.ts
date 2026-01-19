@@ -39,9 +39,17 @@ export class RecipeService {
   }
 
   /** Update a recipe by ID */
-  updateRecipe(id: number, recipe: UpdateRecipeRequest): Observable<Recipe> {
-    return this.http.put<Recipe>(`${this.baseUrl}/${id}`, recipe);
-  }
+  updateRecipe(id: number,recipe:Recipe): Observable<Recipe> {
+  return this.http.put<Recipe>(
+    `${this.baseUrl}/${id}`,
+    { recipe }, // keep it SIMPLE
+    {
+      headers: { 'Content-Type': 'application/json' }
+    }
+  );
+}
+
+  
 
   /** Delete a recipe by ID */
   deleteRecipe(id: number): Observable<Recipe> {

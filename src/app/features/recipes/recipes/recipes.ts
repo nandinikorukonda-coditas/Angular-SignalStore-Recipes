@@ -8,6 +8,7 @@ import { NgFor, NgIf } from '@angular/common';
 import { Button } from '../../../shared/components/button/button';
 import { Recipe } from '../../../core/models/recipe-model';
 import { FavouriteStore } from '../../../core/stores/favourite-store';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-recipes',
@@ -18,12 +19,11 @@ import { FavouriteStore } from '../../../core/stores/favourite-store';
 })
 export class Recipes {
   readonly store = inject(RecipeStore);
+  toast=inject(MatSnackBar);
 
   favouriteStore = inject(FavouriteStore);
 
-  
 
-  
 
   // ngOnInit(): void {
   //   // Load recipes on component init
@@ -31,7 +31,7 @@ export class Recipes {
   // }
 
   toggleFavourite(recipe: Recipe) {
-    this.favouriteStore.addToFavourites(recipe);
+    this.favouriteStore.toggleFavourite(recipe);
   }
   /**
    * Search recipes by name
@@ -53,7 +53,24 @@ export class Recipes {
   delete(id: number) {
     if (confirm('Are you sure you want to delete this recipe?')) {
       this.store.deleteRecipe(id);
+      this.favouriteStore.removeFromFavourites(id);
     }
+  }
+  edit(id:number){
+    this.toast.open('Recipe updated successfully!', 'Close', {
+      duration: 3000,
+      horizontalPosition: 'right',
+      verticalPosition: 'top',
+      panelClass: ['success-snackbar'],
+    });
+  }
+  add(){
+    this.toast.open('Recipe added successfully!', 'Close', {
+      duration: 3000,
+      horizontalPosition: 'right',
+      verticalPosition: 'top',
+      panelClass: ['success-snackbar'],
+    });
   }
 }
 

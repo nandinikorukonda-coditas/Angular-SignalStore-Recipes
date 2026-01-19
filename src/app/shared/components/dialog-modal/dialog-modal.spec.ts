@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EmptyState } from './empty-state';
+import { DialogModal } from './dialog-modal';
 
-describe('EmptyState', () => {
-  let component: EmptyState;
-  let fixture: ComponentFixture<EmptyState>;
+describe('DialogModal', () => {
+  let component: DialogModal;
+  let fixture: ComponentFixture<DialogModal>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [EmptyState]
+      imports: [DialogModal]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(EmptyState);
+    fixture = TestBed.createComponent(DialogModal);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

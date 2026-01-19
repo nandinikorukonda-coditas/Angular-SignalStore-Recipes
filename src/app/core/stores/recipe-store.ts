@@ -162,14 +162,18 @@ export const RecipeStore = signalStore(
           tap((recipe) => console.log('Recipe received in store:', recipe)),
           tap((recipe) => console.log('Recipe ID:', recipe.id)),
           switchMap((recipe) =>
-            recipeService.updateRecipe((recipe.id), recipe).pipe(
+            recipeService.updateRecipe((recipe.id),recipe).pipe(
               tapResponse({
+              
                 next: (res) =>
+                  
                   patchState(store, ({ recipes }) => ({
                     recipes: recipes.map((r) =>
                       r.id === res.id ? res : r
+                    
                     ),
                     isLoading: false,
+                    
                   })),
                 error: (err) => {
                   console.error('Update API error:', err);

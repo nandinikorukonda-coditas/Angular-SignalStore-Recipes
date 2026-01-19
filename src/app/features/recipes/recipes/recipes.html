@@ -1,76 +1,80 @@
 <div class="recipes-container">
+  <div class="recipes-topbar">
+    <mat-form-field appearance="outline">
+      <mat-label>Search recipes</mat-label>
+      <input
+        matInput
+        placeholder="Enter recipe name..."
+        (input)="search($event.target.value)"
+      />
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
 
-    <!-- Top bar: Search + Add Button -->
-    <div class="recipes-topbar">
-      <!-- Search bar -->
-      <div>
-      <mat-form-field appearance="outline">
-        <mat-label>Search recipes</mat-label>
-        <input
-          matInput
-          placeholder="Enter recipe name..."
-          (input)="search($event.target.value)"
+    <app-button
+      class="add-recipe-btn"
+      label="Add Recipe"
+      type="primary"
+      icon="add"
+      (click)="add()"
+    ></app-button>
+  </div>
+
+  <div *ngIf="store.isLoading()" class="loading">Loading recipes...</div>
+  <div *ngIf="store.error()" class="error">{{ store.error() }}</div>
+
+  <div class="recipes-grid">
+    <app-card
+      *ngFor="let recipe of store.recipes()"
+      class="recipe-card"
+      [title]="recipe.name"
+      [value]="recipe.cuisine"
+    >
+      <!-- Image wrapper -->
+      <div class="recipe-image-wrapper">
+        <img
+          class="recipe-image"
+          [src]="recipe.image"
+          [alt]="recipe.name"
         />
-        <mat-icon matSuffix>search</mat-icon>
-      </mat-form-field>
-    </div>
-    
-  
-      <!-- Add Recipe Button -->
-      <app-button
-        class="add-recipe-btn"
-        label="Add Recipe"
-        type="primary"
-        icon="add"
-        
-      ></app-button>
-    </div>
-  
-    <!-- Loading / Error -->
-    <div *ngIf="store.isLoading()" class="loading">Loading recipes...</div>
-    <div *ngIf="store.error()" class="error">{{ store.error() }}</div>
-  
-    <!-- Recipes Grid -->
-    <div class="recipes-grid">
-      <app-card
-        *ngFor="let recipe of store.recipes()"
-        [title]="recipe.name"
-        [value]="recipe.cuisine"
-        class="recipe-card"
-      >
-        <!-- Image at the top -->
-        <img class="recipe-image" [src]="recipe.image" [alt]="recipe.name" />
-  
-        <!-- Additional content -->
-        <div class="recipe-details">
-          <p>Difficulty: {{ recipe?.difficulty }}</p>
-          <p>Servings: {{ recipe?.servings }}</p>
-          <p>Rating: ⭐ {{ recipe?.rating }} ({{ recipe?.reviewCount }})</p>
-  
-          <div class="tags">
-            <span *ngFor="let tag of recipe?.tags" class="tag">{{ tag }}</span>
-          </div>
-        </div>
-  
-        <!-- Actions: Delete & Favourite -->
-        <div class="recipe-actions">
-          <app-button
-            label="Delete"
-            type="warn"
-            icon="delete"
-            (clicked)="delete(recipe.id)"
-          ></app-button>
-  
-          <!-- Favourite Icon -->
-          <mat-icon
-            class="fav-icon"
-            [color]="favouriteStore.isFavourite(recipe.id) ? 'warn' : ''"
-            (click)="toggleFavourite(recipe)"
-          >
-            {{ favouriteStore.isFavourite(recipe.id) ? 'favorite' : 'favorite_border' }}
+
+        <!-- Zomato-style Favourite Icon -->
+        <div
+          class="fav-icon"
+          [class.active]="favouriteStore.isFavourite(recipe.id)"
+          (click)="toggleFavourite(recipe)"
+        >
+          <mat-icon>
+            {{ favouriteStore.isFavourite(recipe.id)
+              ? 'favorite'
+              : 'favorite_border' }}
           </mat-icon>
         </div>
-      </app-card>
-    </div>
+      </div>
+
+      <div class="recipe-details">
+        <p>Difficulty: {{ recipe.difficulty }}</p>
+        <p>Servings: {{ recipe.servings }}</p>
+        <p>Rating: ⭐ {{ recipe.rating }} ({{ recipe.reviewCount }})</p>
+
+        <div class="tags">
+          <span *ngFor="let tag of recipe.tags" class="tag">{{ tag }}</span>
+        </div>
+      </div>
+
+      <div class="recipe-actions">
+        <app-button
+          label="Delete"
+          type="warn"
+          icon="delete"
+          (clicked)="delete(recipe.id)"
+        ></app-button>
+        <app-button
+          label="Edit"
+          type="warn"
+          icon="edit"
+          (clicked)="edit(recipe.id)"
+        ></app-button>
+      </div>
+    </app-card>
   </div>
-  
+</div>

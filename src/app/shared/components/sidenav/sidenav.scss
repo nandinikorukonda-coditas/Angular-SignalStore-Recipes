@@ -3,11 +3,11 @@
   
     mat-sidenav {
       width: 220px;
-      background-color: #cad2ec; // main accent color for sidebar
+      background-color: #dfe2ec; // main accent color for sidebar
       color: #ffffff; // white text
   
       mat-toolbar {
-        background-color: #aebce9; // slightly darker shade of sidebar for header
+        background-color: #cbd3ee; // slightly darker shade of sidebar for header
         color: #ffffff;
         font-weight: 600;
         font-size: 1.2rem;
@@ -23,6 +23,7 @@
           margin: 0.2rem 0;
           transition: all 0.2s;
           border: none;
+          
   
           mat-icon {
             color: #ffffff; // icons white

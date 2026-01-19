@@ -1,59 +1,73 @@
-# Recipes
+🧠 State Management Using NgRx SignalStore:
+NgRx SignalStore is a modern, fully-featured state management solution built on top of Angular Signals.
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.5.
+In this project, NgRx SignalStore is used to provide centralized, reactive, and scalable state management, enabling clean handling of application state, API interactions, and derived data while keeping UI components lightweight and focused.
 
-## Development server
 
-To start a local development server, run:
 
-```bash
-ng serve
-```
+🏗️ SignalStore Architecture in This Project:
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+This application uses two dedicated SignalStores, each responsible for managing a specific domain of the application state.
 
-## Code scaffolding
+📌 1. RecipeStore
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+🎯 Purpose
+Manages all recipe-related data and operations.
 
-```bash
-ng generate component component-name
-```
+🔧 Responsibilities
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+🍽️ Fetches recipes from the DummyJSON Recipes API
 
-```bash
-ng generate --help
-```
+🧱 Defines application state using withState()
 
-## Building
+⚙️ Handles business logic and API interactions using withMethods() and rxMethod()
 
-To build the project run:
+🧮 Exposes derived data (such as total recipe count) using withComputed() for dashboard summaries
 
-```bash
-ng build
-```
+❤️ 2. FavouriteStore
+🎯 Purpose
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+Manages the list of recipes marked as favourites by the user.
 
-## Running unit tests
+🔧 Responsibilities
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+⭐ Adds or removes recipes when the favourite icon is clicked
 
-```bash
-ng test
-```
+🗃️ Stores the favourites list in a centralized store
 
-## Running end-to-end tests
+📊 Exposes the total favourites count using computed signals for dashboard display
 
-For end-to-end (e2e) testing, run:
 
-```bash
-ng e2e
-```
+🗂️ Store Structure:
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+The application uses two dedicated SignalStores:
 
-## Additional Resources
+src/app/stores/
+ ├── recipe-store.ts
+ └── favourite-store.ts
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+🔁 Application Flow:
+
+1️⃣ UI components interact directly with SignalStores, not with APIs
+2️⃣ API calls are encapsulated inside the store, which internally invokes service methods
+3️⃣ SignalStores behave like injectable services and can be accessed across components
+4️⃣ Any change in store state automatically updates all consuming components through reactive signals
+
+
+Key Advantages of SignalStore in This Project:
+
+🔄 No manual subscription or unsubscription
+rxMethod() internally manages observable lifecycles.
+
+🧠 Single source of truth
+All application state is centralized, ensuring consistency across components.
+
+🪝 Centralized lifecycle logic
+Store-level initialization is handled using withHooks(), eliminating duplicated ngOnInit() logic in components.
+
+🧮 Reusable derived state
+Computed values are centralized using withComputed(), avoiding repeated calculations in multiple components.
+
+🎨 Clear separation of concerns
+Business logic resides in stores, while components focus only on UI rendering.
+
