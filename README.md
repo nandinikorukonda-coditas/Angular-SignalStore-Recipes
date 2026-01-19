@@ -46,6 +46,43 @@ src/app/stores/
  ├── recipe-store.ts
  └── favourite-store.ts
 
+
+
+🔁 API Integration with rxMethod:
+The store uses rxMethod to handle async API calls in a declarative way.
+
+Example: Load all Recipes
+
+loadRecipes: rxMethod<void>(
+        pipe(
+          tap(() => patchState(store, { isLoading: true, error: null })),
+          switchMap(() =>
+            recipeService.getAllRecipes().pipe(
+              tapResponse({
+                next: (res: RecipesResponse) =>
+                  patchState(store, {
+                    recipes: res.recipes,
+                    isLoading: false,
+                  }),
+                error: () =>
+                  patchState(store, {
+                    error: 'Failed to load recipes',
+                    isLoading: false,
+                  }),
+              })
+            )
+          )
+        ))
+
+This pattern:
+
+Sets loading state
+Calls the API
+Updates store state on success
+Captures errors
+Automatically triggers UI updates
+
+
 🔁 Application Flow:
 
 1️⃣ UI components interact directly with SignalStores, not with APIs
